@@ -20,7 +20,7 @@ public:
     std::size_t size() const;
     std::size_t capacity() const;
 
-    // Добавление оператора индексации
+    
     T& operator[](std::size_t index);
     const T& operator[](std::size_t index) const;
 
@@ -125,7 +125,7 @@ void Vect<T>::resize(std::size_t newCapacity) {
     _capacity = newCapacity;
 }
 
-// Реализация оператора индексации
+
 template<typename T>
 T& Vect<T>::operator[](std::size_t index) {
     if (index >= _size) {
