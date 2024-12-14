@@ -167,7 +167,7 @@ namespace containers {
         }
     };
 
-} // namespace containers
+}
 
 template<typename T>
 void demonstrateDRList(const std::string& typeName) {
@@ -258,7 +258,7 @@ int main() {
                 break;
             case 4:
                 std::cout << "Выход..." << std::endl;
-                return 0; // Выход из программы
+                return 0; 
             default:
                 std::cout << "Неправильный выбор. Пожалуйста, повторите заново." << std::endl;
         }
