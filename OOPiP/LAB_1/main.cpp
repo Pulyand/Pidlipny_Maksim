@@ -134,11 +134,16 @@ namespace containers {
         }
 
         void clear() {
-            while (head_) {
-                Node* temp = head_;
-                head_ = head_->next;
+            if (!head_) return;
+
+            Node* current = head_;
+            do {
+                Node* temp = current;
+                current = current->next;
                 delete temp;
-            }
+            } while (current != head_);
+
+            head_ = nullptr;
             size_ = 0;
         }
 
@@ -186,54 +191,56 @@ void demonstrateDRList(const std::string& typeName) {
         std::cout << "5. Очистка списка" << std::endl;
         std::cout << "6. Проверка на пустоту списка" << std::endl;
         std::cout << "7. Выход" << std::endl;
-        std::cout << "Введите ваш выбоо: ";
+        std::cout << "Введите ваш выбор: "; // Corrected input prompt message
+
         std::cin >> choice;
 
         switch (choice) {
-            case 1:
-                if constexpr (std::is_same_v<T, int>) {
-                    list.push_back(10);
-                    list.push_back(20);
-                    list.push_back(30);
-                }
-                else if constexpr (std::is_same_v<T, double>) {
-                    list.push_back(10.5);
-                    list.push_back(20.7);
-                    list.push_back(30.9);
-                }
-                else if constexpr (std::is_same_v<T, std::string>) {
-                    list.push_back("Hello");
-                    list.push_back("World");
-                    list.push_back("C++");
-                }
-                break;
-            case 2:
-                list.printForward();
-                break;
-            case 3:
-                list.printBackward();
-                break;
-            case 4:
-                list.moveBackward(1);
-                break;
-            case 5:
-                list.clear();
-                break;
-            case 6:
-                std::cout << "Список пустой? " << (list.size() == 0 ? "Да" : "Нет") << std::endl;
-                break;
-            default:
-                std::cout << "Неправильный выбор. Пожалуйста, повторите заново" << std::endl;
+        case 1:
+            if constexpr (std::is_same_v<T, int>) {
+                list.push_back(10);
+                list.push_back(20);
+                list.push_back(30);
+            }
+            else if constexpr (std::is_same_v<T, double>) {
+                list.push_back(10.5);
+                list.push_back(20.7);
+                list.push_back(30.9);
+            }
+            else if constexpr (std::is_same_v<T, std::string>) {
+                list.push_back("Hello");
+                list.push_back("World");
+                list.push_back("C++");
+            }
+            break;
+        case 2:
+            list.printForward();
+            break;
+        case 3:
+            list.printBackward();
+            break;
+        case 4:
+            list.moveBackward(1);
+            break;
+        case 5:
+            list.clear();
+            break;
+        case 6:
+            std::cout << "Список пустой? " << (list.size() == 0 ? "Да" : "Нет") << std::endl;
+            break;
+        case 7:  // Added case 7 to exit the loop
+            break;
+        default:
+            std::cout << "Неправильный выбор. Пожалуйста, повторите заново." << std::endl;
         }
 
         list.printCurrentPosition();
 
-    } while (choice != 7);
-
-    return 0;
+    } while (choice != 7); // Corrected loop termination condition
 }
 
 int main() {
+    setlocale(LC_ALL, "Ru");
     using namespace containers;
 
     int choice;
@@ -247,20 +254,20 @@ int main() {
         std::cin >> choice;
 
         switch (choice) {
-            case 1:
-                demonstrateDRList<int>("int");
-                break;
-            case 2:
-                demonstrateDRList<double>("double");
-                break;
-            case 3:
-                demonstrateDRList<std::string>("std::string");
-                break;
-            case 4:
-                std::cout << "Выход..." << std::endl;
-                return 0; 
-            default:
-                std::cout << "Неправильный выбор. Пожалуйста, повторите заново." << std::endl;
+        case 1:
+            demonstrateDRList<int>("int");
+            break;
+        case 2:
+            demonstrateDRList<double>("double");
+            break;
+        case 3:
+            demonstrateDRList<std::string>("std::string");
+            break;
+        case 4:
+            std::cout << "Выход..." << std::endl;
+            return 0;
+        default:
+            std::cout << "Неправильный выбор. Пожалуйста, повторите заново." << std::endl;
         }
 
     } while (choice != 4);
